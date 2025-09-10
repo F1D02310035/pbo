@@ -4,29 +4,43 @@ public class Parkir {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Berapa kali Anda parkir menggunakan sepeda? ");
-        int parkirSepeda = scanner.nextInt();
+        System.out.print("Berapa hari total Anda parkir dalam minggu ini? ");
+        int totalHari = scanner.nextInt();
+        scanner.nextLine(); 
 
-        System.out.print("Berapa kali Anda parkir menggunakan motor? ");
-        int parkirMotor = scanner.nextInt();
+        int hariSepeda = 0;
+        int hariMotor = 0;
+        int hariMobil = 0;
 
-        System.out.print("Berapa kali Anda parkir menggunakan mobil? ");
-        int parkirMobil = scanner.nextInt();
+        for (int i = 1; i <= totalHari; i++) { //for dipake pas iterasinya udah pasti
+            boolean valid = false;
+            while (!valid) {
+                System.out.print("Hari " + i + ", jenis kendaraan Anda (sepeda/motor/mobil): ");
+                String kendaraan = scanner.nextLine().toLowerCase();
 
-        int totalHariParkir = parkirSepeda + parkirMotor + parkirMobil;
-        System.out.println("Jadi total hari Anda parkir minggu ini adalah " + totalHariParkir + "hari");
+                if (!kendaraan.equals("sepeda") && !kendaraan.equals("motor") && !kendaraan.equals("mobil")) {
+                    System.out.println("Input invalid!");
+                } else {
+                    if (kendaraan.equals("sepeda")) {
+                        hariSepeda++;
+                    } else if (kendaraan.equals("motor")) {
+                        hariMotor++;
+                    } else if (kendaraan.equals("mobil")) {
+                        hariMobil++;
+                    }
+                    valid = true;
+                }
+            }
+        }
 
-        int biayaSepeda = parkirSepeda * 1000;
-        int biayaMotor = parkirMotor * 2000;
-        int biayaMobil = parkirMobil * 5000;
-        int totalBiaya = biayaSepeda + biayaMotor + biayaMobil;
+        int totalBiaya = (hariSepeda * 1000) + (hariMotor * 2000) + (hariMobil * 5000);
 
-        System.out.println("Total perhitungan:");
-        System.out.println("(" + parkirSepeda + " * 1000) + (" + parkirMotor + " * 2000) + (" + parkirMobil + " * 5000) = " + totalBiaya);
-
-        System.out.println("Sehingga total biaya parkir yang harus Anda bayar sebesar " + totalBiaya);
+        System.out.println("\nRincian parkir:");
+        System.out.println("Sepeda: " + hariSepeda + " hari");
+        System.out.println("Motor: " + hariMotor + " hari");
+        System.out.println("Mobil: " + hariMobil + " hari");
+        System.out.println("Total biaya parkir yang harus Anda bayar sebesar: " + totalBiaya);
 
         scanner.close();
     }
 }
-
